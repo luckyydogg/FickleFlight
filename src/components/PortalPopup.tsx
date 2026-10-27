@@ -25,7 +25,7 @@ type PopupProps = {
     | "Bottom right";
   onOutsideClick?: () => void;
   zIndex?: number;
-  children: ReactNode;
+  children?: ReactNode;
   left?: number;
   right?: number;
   top?: number;
