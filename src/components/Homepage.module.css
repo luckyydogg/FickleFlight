@@ -1948,3 +1948,123 @@
     width: 100%;
   }
 }
+
+/* A quieter travel editorial style, with a clear search hierarchy. */
+.homepage {
+  width: 100%;
+  background: #fcfcfa;
+  gap: 64px;
+}
+.homepage:hover { background: #fcfcfa; }
+.topHeader { height: 88px; border-bottom: 1px solid #e9ecee; }
+.topContainer { width: 100%; max-width: 1280px; }
+.navigationMenu a { text-decoration: none; }
+.navigationMenu .search {
+  border: 0;
+  background: transparent;
+  padding: 8px 0;
+  font: inherit;
+  color: #424242;
+}
+.navigationMenu a:hover, .navigationMenu button:hover { color: #1262af; }
+.searchSection { height: 660px; }
+.bannerBackground, .bannerGradient { height: 100%; }
+.bannerBackground { filter: brightness(.72); }
+.searchContainer {
+  position: relative;
+  height: 100%;
+  max-width: 1280px;
+  margin: auto;
+  padding: 56px 48px;
+  gap: 36px;
+  align-items: stretch;
+}
+.title { align-items: flex-start; text-align: left; gap: 16px; }
+.eyebrow {
+  font: 500 12px/1.6 Roboto, sans-serif;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #f8deb0;
+}
+.letsExplore {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(40px, 4.5vw, 64px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  margin: 0;
+}
+.findTheBest { font-size: 17px; line-height: 1.6; color: #f0f4f8; }
+.searchForm {
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px #122d4729;
+  gap: 14px;
+  scroll-margin-top: 24px;
+}
+.searchFlights { text-transform: none; letter-spacing: -.02em; font-size: 21px; }
+.formTitleGroup { width: 100%; box-sizing: border-box; }
+.formInputsRow { width: 100%; align-items: center; }
+.inputsRow { flex: 1; min-width: 0; width: 100%; }
+.inputGroup { min-width: 0; }
+.searchForm :global(.MuiOutlinedInput-root) { border-radius: 9px; background: #fcfcfa; }
+.searchFlightsButton { border-radius: 9px; background: #a95b19; transition: background-color .2s, transform .2s; }
+.searchFlightsButton:hover { background: #874611; transform: translateY(-2px); }
+.button { text-transform: none; font-size: 16px; }
+.homeContents { max-width: 1280px; padding: 0 48px; gap: 64px; }
+.upcomingFlight { width: auto; font-size: 15px; color: #566777; }
+.flightMainContainer { border-radius: 14px; background: #fff; }
+.popDestinationsMain, .recommendedHolidaysContainer { scroll-margin-top: 24px; }
+.mostPopularDestinations, .recommendedHolidays, .popularStays1 {
+  letter-spacing: -.025em;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: 32px;
+}
+.popularStays1 { width: auto; max-width: 100%; }
+.pariscard { overflow: hidden; border-radius: 14px; }
+.parisimageIcon { transition: transform .35s; }
+.col1:hover .parisimageIcon { transform: scale(1.05); }
+.recCard1, .recCard3, .recCard4 { transition: transform .2s; }
+.recCard1:hover, .recCard3:hover, .recCard4:hover { transform: translateY(-5px); }
+.hotelCards { padding-right: 0; margin-right: -12px; align-items: stretch; }
+.hotelCard, .hotelCard3, .hotelCard4, .hotelCard5 { width: 100% !important; border: 1px solid #e4e8ea; border-radius: 14px; }
+.hotelCard1, .hotelCard41 { min-width: 0; }
+.reviews, .reviews2 { width: auto; white-space: nowrap; }
+.viewAllTop, .viewAllHolidaysParent, .viewAllStaysButton { background: transparent; }
+@media (max-width: 1100px) {
+  .navigationMenu { display: flex; gap: 20px; }
+  .hamburgerMenuIcon { display: none; }
+  .searchContainer { padding: 40px 30px; }
+  .searchSection { height: auto; min-height: 700px; }
+  .searchContainer { height: auto; min-height: 700px; }
+  .formInputsRow { align-items: stretch; }
+  .buttonGroup { padding: 5px; box-sizing: border-box; }
+  .searchFlightsButton { width: 100%; }
+  .hotelCard41 { display: flex; }
+  .hotelCards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 0; width: calc(100% + 24px); }
+  .hotelCard1, .hotelCard41 { width: 100%; }
+}
+@media (max-width: 650px) {
+  .topHeader { height: auto; padding: 20px; }
+  .topContainer { flex-wrap: wrap; gap: 20px; }
+  .navigationRight { width: 100%; justify-content: space-between; gap: 12px; }
+  .navigationMenu { gap: 22px; }
+  .accountSection { display: none; }
+  .searchContainer { padding: 36px 20px; gap: 26px; min-height: 0; }
+  .searchSection { min-height: 0; }
+  .letsExplore { font-size: 40px; line-height: 1.12; }
+  .findTheBest { font-size: 15px; }
+  .eyebrow { font-size: 10px; letter-spacing: .1em; }
+  .searchForm { margin-top: 0; padding: 18px 12px; }
+  .searchFlights { padding-bottom: 12px; }
+  .inputsRow { align-items: stretch; }
+  .homeContents { padding: 0 20px; gap: 44px; }
+  .homepage { gap: 40px; }
+  .mostPopularDestinations, .recommendedHolidays, .popularStays1 { font-size: 27px; }
+  .hotelCards { display: flex; width: auto; gap: 0; }
+  .tripMenus { margin: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .parisimageIcon, .recCard1, .recCard3, .recCard4, .searchFlightsButton { transition: none; }
+}

@@ -4,9 +4,6 @@ import {
   FormControlLabel,
   Autocomplete,
   TextField,
-  Icon,
-  InputAdornment,
-  IconButton,
 } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -23,7 +20,9 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
   const [
     selectOutlinedDateTimePickerValue,
     setSelectOutlinedDateTimePickerValue,
-  ] = useState(null);
+  ] = useState<Date | null>(null);
+  const [tripType, setTripType] = useState("one-way");
+  const [returnDate, setReturnDate] = useState<Date | null>(null);
   const [isMatterhornPopupOpen, setMatterhornPopupOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -36,7 +35,7 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
   }, []);
 
   const onSearchTextClick = useCallback(() => {
-    navigate("/");
+    navigate("/results-page");
   }, [navigate]);
 
   const onHotelsTextClick = useCallback(() => {
@@ -50,7 +49,7 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
           <div className={styles.heroSection}>
             <header className={styles.topHeader}>
               <div className={styles.topContainer}>
-                <button className={styles.fickleflightLogo}>
+                <button className={styles.fickleflightLogo} aria-label="FickleFlight home" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
                   <img
                     className={styles.symbolsIcon}
                     alt=""
@@ -59,14 +58,10 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
                 </button>
                 <div className={styles.navigationRight}>
                   <div className={styles.navigationMenu}>
-                    <button className={styles.explore}>Explore</button>
-                    <div className={styles.search} onClick={onSearchTextClick}>
-                      Search
-                    </div>
-                    <div className={styles.search} onClick={onHotelsTextClick}>
-                      Hotels
-                    </div>
-                    <button className={styles.offers}>Offers</button>
+                    <a className={styles.explore} href="#destinations">Explore</a>
+                    <a className={styles.search} href="#flight-search">Search</a>
+                    <button className={styles.search} onClick={onHotelsTextClick}>Hotels</button>
+                    <a className={styles.offers} href="#holidays">Offers</a>
                   </div>
                   <div className={styles.accountSection}>
                     <img
@@ -97,14 +92,13 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
               />
               <div className={styles.searchContainer}>
                 <div className={styles.title}>
-                  <div
-                    className={styles.letsExplore}
-                  >{`Let’s explore & travel the world`}</div>
+                  <span className={styles.eyebrow}>A little further. A little more unforgettable.</span>
+                  <h1 className={styles.letsExplore}>Your next chapter<br />starts with a journey.</h1>
                   <div className={styles.findTheBest}>
-                    Find the best destinations and the most popular stays!
+                    Discover somewhere new. Find flights and stays for your next escape.
                   </div>
                 </div>
-                <div className={styles.searchForm}>
+                <div className={styles.searchForm} id="flight-search">
                   <div className={styles.formTitleGroup}>
                     <b className={styles.searchFlights}>Search flights</b>
                     <div className={styles.flightOptions}>
@@ -113,14 +107,14 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
                           className={styles.radio}
                           label="Return"
                           labelPlacement="end"
-                          control={<Radio size="medium" />}
+                          control={<Radio name="trip-type" checked={tripType === "return"} onChange={() => setTripType("return")} size="medium" />}
                         />
                         <FormControlLabel
                           className={styles.radio1}
                           label="One-way"
                           labelPlacement="end"
                           control={
-                            <Radio color="primary" checked size="medium" />
+                            <Radio name="trip-type" color="primary" checked={tripType === "one-way"} onChange={() => setTripType("one-way")} size="medium" />
                           }
                         />
                       </div>
@@ -150,7 +144,7 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
                               helperText=""
                             />
                           )}
-                          defaultValue="Singapore -  Changi (SIN)"
+                          defaultValue="Singapore (SIN)"
                         />
                       </div>
                       <div className={styles.inputGroup}>
@@ -183,7 +177,8 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
                       <div className={styles.inputGroup}>
                         <div className={styles.selectoutlined}>
                           <DatePicker
-                            label="Date"
+                            label="Departure date"
+                            disablePast
                             value={selectOutlinedDateTimePickerValue}
                             onChange={(newValue: any) => {
                               setSelectOutlinedDateTimePickerValue(newValue);
@@ -200,17 +195,21 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
                                 fullWidth: true,
                                 required: false,
                                 autoFocus: false,
-                                error: false,
                                 color: "primary",
                                 placeholder: "Date",
-                              },
-                              openPickerIcon: {
-                                component: () => <></>,
                               },
                             }}
                           />
                         </div>
                       </div>
+                      {tripType === "return" && (
+                        <div className={styles.inputGroup}>
+                          <DatePicker label="Return date" value={returnDate}
+                            onChange={(value) => setReturnDate(value)} disablePast
+                            minDate={selectOutlinedDateTimePickerValue || undefined}
+                            slotProps={{ textField: { fullWidth: true } }} />
+                        </div>
+                      )}
                     </div>
                     <div className={styles.buttonGroup}>
                       <button
@@ -332,7 +331,7 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
                 </div>
               </div>
             </div>
-            <div className={styles.popDestinationsMain}>
+            <div className={styles.popDestinationsMain} id="destinations">
               <div className={styles.destinationsTitles}>
                 <div className={styles.titleContainer}>
                   <b className={styles.prepareForYour}>Plan your next trip</b>
@@ -428,7 +427,7 @@ const Homepage: FunctionComponent<HomepageType> = ({ className = "" }) => {
                 />
               </div>
             </div>
-            <div className={styles.recommendedHolidaysContainer}>
+            <div className={styles.recommendedHolidaysContainer} id="holidays">
               <div className={styles.recTitle}>
                 <b className={styles.recommendedHolidays}>
                   Recommended Holidays
